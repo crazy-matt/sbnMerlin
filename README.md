@@ -87,7 +87,7 @@ You must be running firmware no older than:
 Using your preferred SSH client/terminal, copy and paste the following command, then press Enter:
 
 ```sh
-/usr/sbin/curl -fsL --retry 3 "https://github.com/crazy-matt/sbnMerlin/blob/fork-deployment/sbnMerlin.sh?raw=true" -o /jffs/scripts/sbnMerlin && chmod 0755 /jffs/scripts/sbnMerlin && /jffs/scripts/sbnMerlin install
+/usr/sbin/curl -fsL --retry 3 "https://raw.githubusercontent.com/crazy-matt/sbnMerlin/fork-deployment/sbnMerlin.sh?cachebuster=$(date +%s)" -o /jffs/scripts/sbnMerlin && chmod 0755 /jffs/scripts/sbnMerlin && /jffs/scripts/sbnMerlin install
 ```
 
 Please then follow instructions shown on-screen.
