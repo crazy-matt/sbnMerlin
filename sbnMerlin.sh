@@ -38,7 +38,7 @@ readonly script_diag="/tmp/$script_name"
 readonly script_config="$script_dir/$script_name.conf"
 readonly script_md5="$script_dir/$script_name.md5"
 readonly script_version="0.0.1"
-readonly script_branch="fix-pcfile-handlers"
+readonly script_branch="add-bond-support"
 readonly script_repo="https://raw.githubusercontent.com/crazy-matt/$script_name/refs/heads/$script_branch"
 
 readonly log_file="$script_dir/$script_name.log"
