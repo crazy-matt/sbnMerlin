@@ -37,9 +37,9 @@ readonly script_xdir="/jffs/scripts"
 readonly script_diag="/tmp/$script_name"
 readonly script_config="$script_dir/$script_name.conf"
 readonly script_md5="$script_dir/$script_name.md5"
-readonly script_version="1.2.6"
-readonly script_branch="master"
-readonly script_repo="https://janico82.gateway.scarf.sh/asuswrt-merlin/$script_name/$script_branch"
+readonly script_version="0.0.0"
+readonly script_branch="fork-deployment"
+readonly script_repo="https://raw.githubusercontent.com/crazy-matt/$script_name/refs/heads/$script_branch"
 
 readonly log_file="$script_dir/$script_name.log"
 readonly log_size=5120 # 5MB in kilobytes
