@@ -1847,6 +1847,44 @@ wlif_bounceclients() {
 	return 0 # OK
 }
 
+ethif_bounceclients() {
+	bri_name=$1
+
+	# Confirm the function was called with the correct arguments.
+	if [ $# -ne 1 ] || ! validate_bridge "$bri_name" ; then
+		loggerEx "Error: Invalid arguments. Usage: ethif_bounceclients br17."
+		
+		script_lock delete # Unlock script
+		exit $env_error # NOK
+	fi
+
+	# Gathering values from device.
+	bri_ifnames=$(gethw_bri_ifnames_x "$bri_name")
+	bri_ifnames=$(echo "$bri_ifnames" | grep -oE "eth[1-9]")
+
+	# Skip if no eth interfaces on this bridge
+	if [ -z "$bri_ifnames" ]; then
+		return 0
+	fi
+
+	loggerEx "Forcing wired clients on bridge($bri_name) to renew DHCP."
+
+	for if_name in $bri_ifnames; do
+		loggerEx "Bouncing interface($if_name) on bridge($bri_name)."
+		ifconfig "$if_name" down 2>/dev/null
+	done
+
+	sleep 1
+
+	for if_name in $bri_ifnames; do
+		ifconfig "$if_name" up 2>/dev/null
+	done
+
+	loggerEx "Wired interface bounce on bridge($bri_name) complete."
+
+	return 0 # OK
+}
+
 wlif_listclients() {
 	bri_name=$1
 
@@ -2780,6 +2818,7 @@ case "$1" in
 		for bri_name in $(gethw_bri_enabled); do
 			
 			wlif_bounceclients "$bri_name"
+			ethif_bounceclients "$bri_name"
 		done
 
 		script_lock delete # Unlock script
