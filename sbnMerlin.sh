@@ -1883,6 +1883,12 @@ ethif_bounceclients() {
 	loggerEx "Forcing wired clients on bridge($bri_name) to renew DHCP."
 
 	for if_name in $bri_ifnames; do
+    # Skip bond slaves and br0 default interfaces
+		if readlink "/sys/class/net/$if_name/master" 2>/dev/null | grep -qE "(bond|br0)"; then
+			loggerEx "Skipping interface($if_name) - bond slave or br0 default."
+			continue
+		fi
+
 		loggerEx "Bouncing interface($if_name) on bridge($bri_name)."
 		ifconfig "$if_name" down 2>/dev/null
 	done
@@ -1890,6 +1896,11 @@ ethif_bounceclients() {
 	sleep 1
 
 	for if_name in $bri_ifnames; do
+    # Skip bond slaves and br0 default interfaces
+		if readlink "/sys/class/net/$if_name/master" 2>/dev/null | grep -qE "(bond|br0)"; then
+			continue
+		fi
+    
 		ifconfig "$if_name" up 2>/dev/null
 	done
 
