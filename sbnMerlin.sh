@@ -2817,8 +2817,12 @@ case "$1" in
 		# Cycle from every allowed bridges and force Guest clients to reauthenticate. 
 		for bri_name in $(gethw_bri_enabled); do
 			
-			wlif_bounceclients "$bri_name"
-			ethif_bounceclients "$bri_name"
+      if [ "$2" == "wl" ] || [ "$2" == "all" ] || [ "$2" == "" ]; then
+			  wlif_bounceclients "$bri_name"
+      fi
+      if [ "$2" == "eth" ] || [ "$2" == "all" ] || [ "$2" == "" ]; then
+			  ethif_bounceclients "$bri_name"
+      fi
 		done
 
 		script_lock delete # Unlock script
