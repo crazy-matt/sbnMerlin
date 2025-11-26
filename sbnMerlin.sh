@@ -1873,7 +1873,7 @@ ethif_bounceclients() {
 
 	# Gathering values from device.
 	bri_ifnames=$(gethw_bri_ifnames_x "$bri_name")
-	bri_ifnames=$(echo "$bri_ifnames" | grep -oE "eth[1-9]")
+	bri_ifnames=$(echo "$bri_ifnames" | grep -o -E "$env_regex_eth_ifname")
 
 	# Skip if no eth interfaces on this bridge
 	if [ -z "$bri_ifnames" ]; then
