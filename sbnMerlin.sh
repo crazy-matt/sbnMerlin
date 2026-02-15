@@ -5,4 +5,6 @@ readonly script_repo="https://raw.githubusercontent.com/crazy-matt/$script_name/
 
 /usr/sbin/curl -fsL --retry 3 "$script_repo/$script_name.sh" -o "/jffs/scripts/$script_name"
 chmod 0755 "/jffs/scripts/$script_name"
-echo "y" | /jffs/scripts/$script_name install
+echo "y" | /jffs/scripts/$script_name install 2>&1 | grep -v "Do you want to run config"
+echo ""
+echo "=== Installation complete ==="
